@@ -31,7 +31,7 @@ public class IJReachability {
         }
         
         var flags: SCNetworkReachabilityFlags = 0
-        if SCNetworkReachabilityGetFlags(defaultRouteReachability, &flags) == 0 {
+        if SCNetworkReachabilityGetFlags(defaultRouteReachability, &flags) == false {
             return false
         }
         
@@ -52,7 +52,7 @@ public class IJReachability {
         }
         
         var flags: SCNetworkReachabilityFlags = 0
-        if SCNetworkReachabilityGetFlags(defaultRouteReachability, &flags) == 0 {
+        if SCNetworkReachabilityGetFlags(defaultRouteReachability, &flags) == false {
             return .NotConnected
         }
         
