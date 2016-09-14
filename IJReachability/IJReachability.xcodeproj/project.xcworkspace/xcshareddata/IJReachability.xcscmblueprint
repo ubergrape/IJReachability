@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "8B696543E4F05C3E48C87A6D6BF371E82C6D1EA8",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "8B696543E4F05C3E48C87A6D6BF371E82C6D1EA8" : 9223372036854775807,
+    "4D27C913E0ECA06529FB4747C222924453186811" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "DE2910CE-6A97-4A85-8E30-D599841B1D60",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "8B696543E4F05C3E48C87A6D6BF371E82C6D1EA8" : "IJReachability\/",
+    "4D27C913E0ECA06529FB4747C222924453186811" : ".."
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "IJReachability",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "IJReachability\/IJReachability.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/ubergrape\/chatgrape_ios",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "4D27C913E0ECA06529FB4747C222924453186811"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/ubergrape\/IJReachability",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "8B696543E4F05C3E48C87A6D6BF371E82C6D1EA8"
+    }
+  ]
+}
