@@ -18,27 +18,27 @@ class ViewController: UIViewController {
         
     }
     
-    @IBAction func checkButtonTapped(sender: UIButton) {
+    @IBAction func checkButtonTapped(_ sender: UIButton) {
         
         if IJReachability.isConnectedToNetwork() {
             availabilityLabel.text = "Network Connection: Available"
-            availabilityLabel.textColor = UIColor.greenColor()
+            availabilityLabel.textColor = UIColor.green
         } else {
             availabilityLabel.text = "Network Connection: Unavailable"
-            availabilityLabel.textColor = UIColor.redColor()
+            availabilityLabel.textColor = UIColor.red
         }
         
         let statusType = IJReachability.isConnectedToNetworkOfType()
         switch statusType {
-        case .WWAN:
+        case .wwan:
             connectionTypeLabel.text = "Connection Type: Mobile"
-            connectionTypeLabel.textColor = UIColor.yellowColor()
-        case .WiFi:
+            connectionTypeLabel.textColor = UIColor.yellow
+        case .wiFi:
             connectionTypeLabel.text = "Connection Type: WiFi"
-            connectionTypeLabel.textColor = UIColor.greenColor()
-        case .NotConnected:
+            connectionTypeLabel.textColor = UIColor.green
+        case .notConnected:
             connectionTypeLabel.text = "Connection Type: Not connected to the Internet"
-            connectionTypeLabel.textColor = UIColor.redColor()
+            connectionTypeLabel.textColor = UIColor.red
         }
     }
 }

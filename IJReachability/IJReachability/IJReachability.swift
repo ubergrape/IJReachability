@@ -10,27 +10,27 @@ import Foundation
 import SystemConfiguration
 
 public enum IJReachabilityType {
-    case WWAN,
-    WiFi,
-    NotConnected
+    case wwan,
+    wiFi,
+    notConnected
 }
 
-public class IJReachability {
+open class IJReachability {
     
     /**
     :see: Original post - http://www.chrisdanielson.com/2009/07/22/iphone-network-connectivity-test-example/
     */
-    public class func isConnectedToNetwork() -> Bool {
+    open class func isConnectedToNetwork() -> Bool {
         
         var zeroAddress = sockaddr_in(sin_len: 0, sin_family: 0, sin_port: 0, sin_addr: in_addr(s_addr: 0), sin_zero: (0, 0, 0, 0, 0, 0, 0, 0))
-        zeroAddress.sin_len = UInt8(sizeofValue(zeroAddress))
+        zeroAddress.sin_len = UInt8(MemoryLayout.size(ofValue: zeroAddress))
         zeroAddress.sin_family = sa_family_t(AF_INET)
         
-        let defaultRouteReachability = withUnsafePointer(&zeroAddress) {
+        let defaultRouteReachability = withUnsafePointer(to: &zeroAddress) {
             SCNetworkReachabilityCreateWithAddress(nil, UnsafePointer($0)).takeRetainedValue()
         }
         
-        var flags: SCNetworkReachabilityFlags = 0
+        var flags: SCNetworkReachabilityFlags = SCNetworkReachabilityFlags(rawValue: UInt32(0))
         if SCNetworkReachabilityGetFlags(defaultRouteReachability, &flags) == false {
             return false
         }
@@ -41,19 +41,19 @@ public class IJReachability {
         return (isReachable && !needsConnection) ? true : false
     }
     
-    public class func isConnectedToNetworkOfType() -> IJReachabilityType {
+    open class func isConnectedToNetworkOfType() -> IJReachabilityType {
         
         var zeroAddress = sockaddr_in(sin_len: 0, sin_family: 0, sin_port: 0, sin_addr: in_addr(s_addr: 0), sin_zero: (0, 0, 0, 0, 0, 0, 0, 0))
-        zeroAddress.sin_len = UInt8(sizeofValue(zeroAddress))
+        zeroAddress.sin_len = UInt8(MemoryLayout.size(ofValue: zeroAddress))
         zeroAddress.sin_family = sa_family_t(AF_INET)
         
-        let defaultRouteReachability = withUnsafePointer(&zeroAddress) {
+        let defaultRouteReachability = withUnsafePointer(to: &zeroAddress) {
             SCNetworkReachabilityCreateWithAddress(nil, UnsafePointer($0)).takeRetainedValue()
         }
         
-        var flags: SCNetworkReachabilityFlags = 0
+        var flags: SCNetworkReachabilityFlags = SCNetworkReachabilityFlags(rawValue: UInt32(0))
         if SCNetworkReachabilityGetFlags(defaultRouteReachability, &flags) == false {
-            return .NotConnected
+            return .notConnected
         }
         
         let isReachable = (flags & UInt32(kSCNetworkFlagsReachable)) != 0
@@ -61,13 +61,13 @@ public class IJReachability {
         //let isWifI = (flags & UInt32(kSCNetworkReachabilityFlagsReachable)) != 0
         
         if(isReachable && isWWAN){
-            return .WWAN
+            return .wwan
         }
         if(isReachable && !isWWAN){
-            return .WiFi
+            return .wiFi
         }
         
-        return .NotConnected
+        return .notConnected
         //let needsConnection = (flags & UInt32(kSCNetworkFlagsConnectionRequired)) != 0
         
         //return (isReachable && !needsConnection) ? true : false
