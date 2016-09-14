@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SystemConfiguration
 
 class ViewController: UIViewController {
 
@@ -15,31 +16,65 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    func networkStatusDidChange(notification: NSNotification) {
+        if let networkStatus = notification.userInfo?[ NetworkStatusConstants.Status]{
+            print("\(networkStatus)")
+        }
+        
+        checkConnection()
+    }
+    
+    @IBAction func checkButtonTapped(sender: UIButton) {
+
+         checkConnection()
         
     }
     
-    @IBAction func checkButtonTapped(_ sender: UIButton) {
+    
+    @IBAction func manualAutoSwitchDidChange(manualSwitch: UISwitch) {
         
+        if manualSwitch.on {
+            
+            NSNotificationCenter.defaultCenter().addObserver(self,
+                selector: "networkStatusDidChange:",
+                name: NetworkStatusConstants.kNetworkAvailabilityStatusChangeNotification,
+                object: nil)
+    
+            IJReachability.monitorNetworkChanges()
+            
+        } else {
+            
+            NSNotificationCenter.defaultCenter().removeObserver(self)
+        }
+    }
+    
+    private func checkConnection() {
         if IJReachability.isConnectedToNetwork() {
             availabilityLabel.text = "Network Connection: Available"
-            availabilityLabel.textColor = UIColor.green
+            availabilityLabel.textColor = UIColor.greenColor()
         } else {
             availabilityLabel.text = "Network Connection: Unavailable"
-            availabilityLabel.textColor = UIColor.red
+            availabilityLabel.textColor = UIColor.redColor()
         }
         
         let statusType = IJReachability.isConnectedToNetworkOfType()
-        switch statusType {
-        case .wwan:
-            connectionTypeLabel.text = "Connection Type: Mobile"
-            connectionTypeLabel.textColor = UIColor.yellow
-        case .wiFi:
-            connectionTypeLabel.text = "Connection Type: WiFi"
-            connectionTypeLabel.textColor = UIColor.green
-        case .notConnected:
-            connectionTypeLabel.text = "Connection Type: Not connected to the Internet"
-            connectionTypeLabel.textColor = UIColor.red
+            switch statusType {
+            case .WWAN:
+                connectionTypeLabel.text = "Connection Type: Mobile"
+                connectionTypeLabel.textColor = UIColor.yellowColor()
+            case .WiFi:
+                connectionTypeLabel.text = "Connection Type: WiFi"
+                connectionTypeLabel.textColor = UIColor.greenColor()
+            case .NotConnected:
+                connectionTypeLabel.text = "Connection Type: Not connected to the Internet"
+                connectionTypeLabel.textColor = UIColor.redColor()
         }
+    }
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 }
 
